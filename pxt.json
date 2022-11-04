@@ -11,7 +11,9 @@
     "files": [
         "main.blocks",
         "main.ts",
-        "README.md"
+        "README.md",
+        "_locales/zh-cn/KittenFingerPrint-strings.json",
+        "_locales/zh-tw/KittenFingerPrint-strings.json"
     ],
     "testFiles": [
         "test.ts"
