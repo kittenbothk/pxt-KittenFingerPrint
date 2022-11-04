@@ -1,0 +1,9 @@
+{
+  "KittenFingerPrint|block": "指紋識別模組",
+  "{id:category}KittenFingerPrint": "指紋識別模組",
+  "KittenFingerPrint.initKittenFinger|block": "初始化指紋識別模組|RX|%txpin|TX|%rxpin",
+  "KittenFingerPrint.fingersearch|block": "獲取指紋ID",
+  "KittenFingerPrint.waitfinger|block": "等待手指鬆開",
+  "KittenFingerPrint.savefinger|block": "保存指紋ID|%value",
+  "KittenFingerPrint.deletefinger|block": "删除指紋ID|%value"
+}

@@ -2,7 +2,7 @@ namespace KittenFingerPrint {
 
 let read = pins.createBuffer(14)
 
-    function searchfig() {
+    function searchfinger() {
 		let cmd_search = pins.createBuffer(12)
 		cmd_search[0] = 239
 		cmd_search[1] = 1
@@ -39,10 +39,10 @@ let read = pins.createBuffer(14)
 		}
     }
 
-    //% blockId= Fingerprint_init block="Fingerprint Init at pin RX %txpin TX %rxpin"
+    //% blockId= init_KittenFinger block="Fingerprint Init at pin RX %txpin TX %rxpin"
     //% weight=20
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-    export function initFingerprint(txpin: SerialPin, rxpin: SerialPin): void {
+    export function initKittenFinger(txpin: SerialPin, rxpin: SerialPin): void {
 		serial.redirect(txpin,rxpin,BaudRate.BaudRate57600)
 		basic.pause(2000)
 		let link = pins.createBuffer(16)
@@ -103,8 +103,8 @@ let read = pins.createBuffer(14)
     //% blockId= Finger_search block="Finger search"
     //% weight=15
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-    export function Fingersearch(): string {
-		searchfig()
+    export function fingersearch(): string {
+		searchfinger()
 		let cmd_gen1 = pins.createBuffer(13)
 		cmd_gen1[0] = 239
 		cmd_gen1[1] = 1
@@ -148,13 +148,13 @@ let read = pins.createBuffer(14)
 			return convertToText(read[11])
 		}
 		else
-			return ""
+			return "No Match"
     }
 
     //% blockId= Finger_wait block="Wait finger out"
     //% weight=14
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-	export function waitfig (): void {
+	export function waitfinger (): void {
 		let cmd_search = pins.createBuffer(12)
 		cmd_search[0] = 239
 		cmd_search[1] = 1
@@ -194,8 +194,8 @@ let read = pins.createBuffer(14)
     //% blockId= Finger_save block="Save finger at|ID %value"
     //% weight=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-	export function savefig (value: number): boolean {
-		searchfig()
+	export function savefinger (value: number): boolean {
+		searchfinger()
 		let cmd_gen1 = pins.createBuffer(13)
 		cmd_gen1[0] = 239
 		cmd_gen1[1] = 1
@@ -213,7 +213,7 @@ let read = pins.createBuffer(14)
 		serial.writeBuffer(cmd_gen1)
 		read = serial.readBuffer(12)
 		basic.pause(500)
-		searchfig()
+		searchfinger()
 		let cmd_gen2 = pins.createBuffer(13)
 		cmd_gen2[0] = 239
 		cmd_gen2[1] = 1
@@ -275,7 +275,7 @@ let read = pins.createBuffer(14)
     //% blockId= Finger_delete block="Delete finger at|ID %value"
     //% weight=5
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-	export function deletfig (value: number): boolean {
+	export function deletefinger (value: number): void {
 		let cmd_deletchar = pins.createBuffer(16)
 		cmd_deletchar[0] = 239
 		cmd_deletchar[1] = 1
@@ -294,11 +294,6 @@ let read = pins.createBuffer(14)
 		cmd_deletchar[14] = 0
 		cmd_deletchar[15] = 21+value
 		serial.writeBuffer(cmd_deletchar)
-		read = serial.readBuffer(12)
-		basic.pause(200)
-		if (convertToText(read[11]) == "10")
-			return true
-		else
-			return false
-	}
+    }
+
 }
