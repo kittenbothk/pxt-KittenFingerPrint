@@ -41,9 +41,8 @@ let _touch = DigitalPin.P16
     }
 
 
-    //% blockId= init_KittenFinger block="Fingerprint Init at pin RX %txpin TX %rxpin Touch %touchpin"
+    //% blockId= init_KittenFinger block="Fingerprint Init at pin RX(Blue) %txpin TX(Yellow) %rxpin Touch(Green) %touchpin"
     //% weight=20
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
     export function initKittenFinger(txpin: SerialPin, rxpin: SerialPin, touchpin: DigitalPin): void {
         _touch=touchpin
 		serial.redirect(txpin,rxpin,BaudRate.BaudRate57600)
@@ -115,7 +114,6 @@ let _touch = DigitalPin.P16
 
     //% blockId= Finger_search block="Finger search"
     //% weight=15
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
     export function fingersearch(): string {
 		searchfinger()
 		let cmd_gen1 = pins.createBuffer(13)
@@ -166,7 +164,6 @@ let _touch = DigitalPin.P16
 
     //% blockId= Finger_wait block="Wait finger out"
     //% weight=14
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
 	export function waitfinger (): void {
 		let cmd_search = pins.createBuffer(12)
 		cmd_search[0] = 239
@@ -206,7 +203,6 @@ let _touch = DigitalPin.P16
 
     //% blockId= Finger_save block="Save finger at|ID %value"
     //% weight=10
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
 	export function savefinger (value: number): boolean {
 		searchfinger()
 		let cmd_gen1 = pins.createBuffer(13)
@@ -287,7 +283,6 @@ let _touch = DigitalPin.P16
 
     //% blockId= Finger_delete block="Delete finger at|ID %value"
     //% weight=5
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
 	export function deletefinger (value: number): boolean {
 		let cmd_deletchar = pins.createBuffer(16)
 		cmd_deletchar[0] = 239
