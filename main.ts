@@ -1,3 +1,4 @@
+//% groups='[KittenFingerPrint]'
 namespace KittenFingerPrint {
 
 let read = pins.createBuffer(14)
@@ -41,7 +42,7 @@ let _touch = DigitalPin.P16
     }
 
 
-    //% blockId= init_KittenFinger block="Fingerprint Init at pin RX(Blue) %txpin TX(Yellow) %rxpin Touch(Green) %touchpin"
+    //% blockId= init_KittenFinger block="Fingerprint Sensor Init RX(Blue) %txpin TX(Yellow) %rxpin Touch(Green) %touchpin"
     //% weight=20
     export function initKittenFinger(txpin: SerialPin, rxpin: SerialPin, touchpin: DigitalPin): void {
         _touch=touchpin
@@ -102,7 +103,7 @@ let _touch = DigitalPin.P16
 		basic.pause(200)
     }
 
-    //% blockId= Finger_touch block="Touch Sensor"
+    //% blockId= Finger_touch block="Finger Touched"
     //% weight=17
     export function fingertouch(): boolean{
         if (pins.digitalReadPin(_touch) == 1){
@@ -112,7 +113,7 @@ let _touch = DigitalPin.P16
         }
     }
 
-    //% blockId= Finger_search block="Finger search"
+    //% blockId= Finger_search block="Get Finger ID"
     //% weight=15
     export function fingersearch(): string {
 		searchfinger()
@@ -162,7 +163,7 @@ let _touch = DigitalPin.P16
 			return "No Match"
     }
 
-    //% blockId= Finger_wait block="Wait finger out"
+    //% blockId= Finger_wait block="Wait Finger Release"
     //% weight=14
 	export function waitfinger (): void {
 		let cmd_search = pins.createBuffer(12)
@@ -201,7 +202,7 @@ let _touch = DigitalPin.P16
 		}
 	}
 
-    //% blockId= Finger_save block="Save finger at|ID %value"
+    //% blockId= Finger_save block="Save Finger |ID %value"
     //% weight=10
 	export function savefinger (value: number): boolean {
 		searchfinger()
@@ -281,7 +282,7 @@ let _touch = DigitalPin.P16
 			return false
 	}
 
-    //% blockId= Finger_delete block="Delete finger at|ID %value"
+    //% blockId= Finger_delete block="Delete Finger |ID %value"
     //% weight=5
 	export function deletefinger (value: number): boolean {
 		let cmd_deletchar = pins.createBuffer(16)
