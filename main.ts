@@ -1,6 +1,7 @@
 namespace KittenFingerPrint {
 
 let read = pins.createBuffer(14)
+let _touch = null
 
     function searchfinger() {
 		let cmd_search = pins.createBuffer(12)
@@ -39,10 +40,12 @@ let read = pins.createBuffer(14)
 		}
     }
 
-    //% blockId= init_KittenFinger block="Fingerprint Init at pin RX %txpin TX %rxpin"
+
+    //% blockId= init_KittenFinger block="Fingerprint Init at pin RX %txpin TX %rxpin Touch %touchpin"
     //% weight=20
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-    export function initKittenFinger(txpin: SerialPin, rxpin: SerialPin): void {
+    export function initKittenFinger(txpin: SerialPin, rxpin: SerialPin, touchpin: DigitalPin): void {
+        _touch=touchpin
 		serial.redirect(txpin,rxpin,BaudRate.BaudRate57600)
 		basic.pause(2000)
 		let link = pins.createBuffer(16)
@@ -98,6 +101,12 @@ let read = pins.createBuffer(14)
 		read = serial.readBuffer(20)
 		read = serial.readBuffer(14)
 		basic.pause(200)
+    }
+
+    //% blockId= Finger_touch block="Touch Sensor"
+    //% weight=17
+    export function fingertouch(): boolean{
+        return pins.digitalReadPin(_touch)
     }
 
     //% blockId= Finger_search block="Finger search"
@@ -275,7 +284,7 @@ let read = pins.createBuffer(14)
     //% blockId= Finger_delete block="Delete finger at|ID %value"
     //% weight=5
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
-	export function deletefinger (value: number): void {
+	export function deletefinger (value: number): boolean {
 		let cmd_deletchar = pins.createBuffer(16)
 		cmd_deletchar[0] = 239
 		cmd_deletchar[1] = 1
@@ -294,6 +303,12 @@ let read = pins.createBuffer(14)
 		cmd_deletchar[14] = 0
 		cmd_deletchar[15] = 21+value
 		serial.writeBuffer(cmd_deletchar)
+		read = serial.readBuffer(12)
+		basic.pause(200)
+		if (convertToText(read[11]) == "10")
+			return true
+		else
+			return false
     }
 
 }
