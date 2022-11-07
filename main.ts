@@ -1,7 +1,7 @@
 namespace KittenFingerPrint {
 
 let read = pins.createBuffer(14)
-let _touch = null
+let _touch = DigitalPin.P16
 
     function searchfinger() {
 		let cmd_search = pins.createBuffer(12)
@@ -106,7 +106,11 @@ let _touch = null
     //% blockId= Finger_touch block="Touch Sensor"
     //% weight=17
     export function fingertouch(): boolean{
-        return pins.digitalReadPin(_touch)
+        if (pins.digitalReadPin(_touch) == 1){
+        return true
+        } else {
+        return false
+        }
     }
 
     //% blockId= Finger_search block="Finger search"
