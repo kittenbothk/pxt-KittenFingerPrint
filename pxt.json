@@ -1,12 +1,10 @@
 {
-    "name": "pxt-KittenFingerPrint",
-    "version": "0.0.1",
+    "name": "KittenFingerPrint",
+    "version": "0.0.2",
     "description": "Extension for KittenFingerPrint",
     "license": "MIT",
     "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "main.blocks",
